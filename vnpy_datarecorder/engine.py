@@ -11,6 +11,7 @@ from vnpy.trader.constant import Exchange
 from vnpy.trader.object import (
     SubscribeRequest,
     TickData,
+    LogData,
     BarData,
     ContractData
 )
@@ -242,9 +243,10 @@ class RecorderEngine(BaseEngine):
 
     def write_log(self, msg: str) -> None:
         """"""
+        log: LogData = LogData(msg=msg, gateway_name=APP_NAME)
         event: Event = Event(
             EVENT_RECORDER_LOG,
-            msg
+            log
         )
         self.event_engine.put(event)
 
